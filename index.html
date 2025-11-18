@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShareItSaveIt – Bookmark Social Media Links</title>
+  <meta name="description" content="ShareItSaveIt is a simple iOS app to bookmark and organize social media URLs in one clean, private place." />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-xl: 24px;
+      --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    /* NAVBAR */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.75),
+        transparent
+      );
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .nav-title {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+      border-color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 32px;
+      padding: 32px 20px 40px;
+      margin-top: 12px;
+      border-radius: 32px;
+      background: radial-gradient(circle at top left, #1d2538 0, #020617 55%);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: var(--accent-soft);
+      color: #e0f2fe;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 24px;
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #38bdf8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at top left, #38bdf8, #2563eb);
+      color: #f9fafb;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.65);
+    }
+
+    .btn-primary span.icon {
+      font-size: 16px;
+      transform: translateY(1px);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 9px 16px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-phone {
+      width: 260px;
+      border-radius: 32px;
+      padding: 10px;
+      background: linear-gradient(160deg, #020617, #1f2937);
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .hero-phone img {
+      width: 100%;
+      display: block;
+      border-radius: 24px;
+    }
+
+    .hero-pill {
+      position: absolute;
+      bottom: 16px;
+      right: -4px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-top: 56px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 360px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .feature-label {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      margin: 0 0 6px;
+    }
+
+    .feature-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* SCREENSHOTS */
+    .screenshots-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(160px, 1fr);
+      gap: 12px;
+      padding: 14px;
+      overflow-x: auto;
+      border-radius: var(--radius-xl);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      scroll-snap-type: x mandatory;
+    }
+
+    .screenshots-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+    .screenshots-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .screenshots-grid::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .screenshot-item {
+      scroll-snap-align: start;
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.8);
+      display: block;
+    }
+
+    .screenshots-hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      main {
+        padding: 16px 14px 40px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px 16px 26px;
+        border-radius: 24px;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .hero-phone {
+        width: 220px;
+      }
+
+      .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-phone {
+        width: 200px;
+      }
+      .screenshots-grid {
+        grid-auto-columns: minmax(140px, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-left">
+        <img src="icon.png" alt="ShareItSaveIt icon" class="nav-icon" />
+        <span class="nav-title">ShareItSaveIt</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          <span>Private. Local. Yours.</span>
+        </div>
+
+        <h1 id="hero-title" class="hero-title">
+          Bookmark your social media links in one
+          <span>clean, private space.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          ShareItSaveIt lets you quickly save and organize URLs from your favorite
+          social apps — without accounts, tracking, or cloud syncing. Everything
+          stays on your device.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge">
+            <span class="badge-dot"></span> Data stored on-device only
+          </span>
+          <span class="badge"> No analytics SDKs </span>
+          <span class="badge"> No login or accounts </span>
+        </div>
+
+        <div class="hero-actions">
+          <!-- Replace # with your real App Store link when ready -->
+          <button class="btn-primary" type="button" onclick="window.open('#', '_blank')">
+            <span class="icon"></span>
+            <span>Download on the App Store</span>
+          </button>
+          <button class="btn-ghost" type="button" onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth' });">
+            Learn how it works →
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right" aria-hidden="true">
+        <div class="hero-phone">
+          <!-- Use your best “overview” screenshot here -->
+          <img src="screenshots/screen1.png" alt="ShareItSaveIt app screenshot" />
+        </div>
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          <span>Organize links in seconds</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Designed for quick saving & calm browsing</h2>
+        <p class="section-subtitle">
+          ShareItSaveIt focuses on one thing: keeping your social media URLs
+          neatly organized on your device — no extra noise, no data harvesting.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-label">Save</div>
+          <h3 class="feature-title">Save from any social app</h3>
+          <p class="feature-body">
+            Use the iOS share sheet to send links from Instagram, TikTok, X,
+            YouTube, and more directly into ShareItSaveIt.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Organize</div>
+          <h3 class="feature-title">Folders that make sense to you</h3>
+          <p class="feature-body">
+            Group links by creator, topic, mood, or anything else. Your
+            structure, your rules.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Privacy</div>
+          <h3 class="feature-title">Fully offline by design</h3>
+          <p class="feature-body">
+            There are no accounts, servers, or analytics. Your bookmarks live
+            only on your device, under your control.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section id="screenshots" class="section">
+      <div class="section-header">
+        <h2 class="section-title">See ShareItSaveIt in action</h2>
+        <p class="section-subtitle">
+          A quick look at how saving, browsing, and organizing your favorite
+          links feels inside the app.
+        </p>
+      </div>
+
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <img src="screenshots/screen1.png" alt="ShareItSaveIt screenshot 1" />
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen2.png" alt="ShareItSaveIt screenshot 2" />
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen3.png" alt="ShareItSaveIt screenshot 3" />
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen4.png" alt="ShareItSaveIt screenshot 4" />
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen5.png" alt="ShareItSaveIt screenshot 5" />
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen6.png" alt="ShareItSaveIt screenshot 6" />
+        </div>
+      </div>
+
+      <p class="screenshots-hint">Tip: scroll horizontally to view all screenshots →</p>
+    </section>
+
+    <!-- PRIVACY / SUPPORT -->
+    <section id="privacy" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Privacy & Support</h2>
+        <p class="section-subtitle">
+          ShareItSaveIt is intentionally simple and private. For full details
+          or to get help, use the links below.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-label">Privacy</div>
+          <h3 class="feature-title">Privacy Policy</h3>
+          <p class="feature-body">
+            Learn exactly how ShareItSaveIt handles your data (spoiler:
+            everything stays on your device, and we don’t track you).
+          </p>
+          <p style="margin-top: 10px;">
+            <a href="privacy-policy.html">Read the Privacy Policy →</a>
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Support</div>
+          <h3 class="feature-title">Support & Feedback</h3>
+          <p class="feature-body">
+            Having trouble, or have an idea that would make ShareItSaveIt better?
+            We’d love to hear from you.
+          </p>
+          <p style="margin-top: 10px;">
+            <a href="support.html">Visit the Support page →</a>
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Coming soon</div>
+          <h3 class="feature-title">New features</h3>
+          <p class="feature-body">
+            Future updates may include smarter organization, better search, and
+            more ways to open your saved links quickly.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>© <span id="year"></span> ShareItSaveIt. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
