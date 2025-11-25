@@ -45,9 +45,8 @@ Everything is stored **offline using Core Data**, keeping your information priva
 ---
 
 ## 🍎 **App Store Link**
-(Not yet published)
 
-**App Store:** https://apps.apple.com/app/your-app-id
+**App Store:** https://apps.apple.com/us/app/shareitsaveit/id6755452662
 
 ---
 
