@@ -16,6 +16,12 @@
 
 ---
 
+## 🍎 **App Store Link**
+
+**App Store:** https://apps.apple.com/us/app/shareitsaveit/id6755452662
+
+---
+
 ## 📱 **What Is Share It Save It?**
 
 Share It Save It lets you quickly **save URLs from any app** — Instagram, Safari, TikTok, X, YouTube, Reddit, and more — and organize them into **custom categories** for easy access.
@@ -41,12 +47,6 @@ Everything is stored **offline using Core Data**, keeping your information priva
 - 💾 Fully **offline** — stored only on your device  
 - 🚫 **No servers, no analytics, no tracking**  
 - 📴 Works without internet  
-
----
-
-## 🍎 **App Store Link**
-
-**App Store:** https://apps.apple.com/us/app/shareitsaveit/id6755452662
 
 ---
 
