@@ -3,9 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <title>ShareItSaveIt</title>
-  <meta name="description" content="ShareItSaveIt is a simple iOS app to save and organize social media links using the iOS Share Sheet. Private by design — all data stays on your device." />
+  <link rel="canonical" href="https://shareitsaveit.netlify.app/" />
+
+  <title>ShareItSaveIt – Save and Organize Social Media Links on iPhone</title>
+  <meta
+    name="description"
+    content="Save and organize Instagram posts, TikTok videos, X threads, YouTube links, Reddit posts, and Safari pages with the iPhone Share Sheet. Private, simple, and stored on your device."
+  />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ShareItSaveIt – Save and Organize Social Media Links on iPhone" />
+  <meta
+    property="og:description"
+    content="Save social media links in one tap with the iPhone Share Sheet. Organize everything into folders and keep your data private on your device."
+  />
+  <meta property="og:url" content="https://shareitsaveit.netlify.app/" />
+  <meta property="og:image" content="https://shareitsaveit.netlify.app/social-preview.png" />
+  <meta property="og:site_name" content="ShareItSaveIt" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ShareItSaveIt – Save and Organize Social Media Links on iPhone" />
+  <meta
+    name="twitter:description"
+    content="Save Instagram posts, TikTok videos, YouTube links, X threads, and more with one tap. Private by design."
+  />
+  <meta name="twitter:image" content="https://shareitsaveit.netlify.app/social-preview.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ShareItSaveIt",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "iOS",
+    "description": "ShareItSaveIt is an iPhone app that lets you save and organize social media links from Instagram, TikTok, X, YouTube, Reddit, and Safari using the iOS Share Sheet.",
+    "url": "https://shareitsaveit.netlify.app/",
+    "downloadUrl": "https://apps.apple.com/us/app/shareitsaveit/id6755452662",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     :root {
@@ -23,6 +68,10 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -45,6 +94,18 @@
       padding: 24px 16px 64px;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* NAVBAR */
     .nav {
       display: flex;
@@ -55,7 +116,8 @@
       top: 0;
       z-index: 10;
       backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom,
+      background: linear-gradient(
+        to bottom,
         rgba(15, 23, 42, 0.9),
         rgba(15, 23, 42, 0.75),
         transparent
@@ -72,7 +134,7 @@
       width: 32px;
       height: 32px;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
 
     .nav-title {
@@ -150,7 +212,7 @@
       margin: 0 0 24px;
       font-size: 16px;
       color: var(--text-muted);
-      max-width: 32rem;
+      max-width: 36rem;
     }
 
     .hero-badges {
@@ -197,7 +259,6 @@
       color: #f9fafb;
       font-weight: 500;
       font-size: 14px;
-      cursor: pointer;
       box-shadow: 0 14px 30px rgba(37, 99, 235, 0.65);
     }
 
@@ -207,13 +268,15 @@
     }
 
     .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 999px;
       padding: 9px 16px;
       border: 1px solid var(--border-subtle);
       background: rgba(15, 23, 42, 0.6);
       color: var(--text-muted);
       font-size: 14px;
-      cursor: pointer;
     }
 
     .btn-ghost:hover {
@@ -287,7 +350,7 @@
     .section-subtitle {
       font-size: 14px;
       color: var(--text-muted);
-      max-width: 360px;
+      max-width: 420px;
     }
 
     .features-grid {
@@ -320,6 +383,7 @@
       font-size: 14px;
       color: var(--text-muted);
       margin: 0;
+      line-height: 1.6;
     }
 
     /* SCREENSHOTS */
@@ -339,9 +403,11 @@
     .screenshots-grid::-webkit-scrollbar {
       height: 6px;
     }
+
     .screenshots-grid::-webkit-scrollbar-track {
       background: transparent;
     }
+
     .screenshots-grid::-webkit-scrollbar-thumb {
       background: rgba(148, 163, 184, 0.7);
       border-radius: 999px;
@@ -427,6 +493,7 @@
       .hero-phone {
         width: 200px;
       }
+
       .screenshots-grid {
         grid-auto-columns: minmax(140px, 1fr);
       }
@@ -436,14 +503,14 @@
 
 <body>
   <main>
-    <!-- NAV -->
     <header class="nav">
       <div class="nav-left">
-        <img src="icon.png" alt="ShareItSaveIt icon" class="nav-icon" />
+        <img src="icon.png" alt="ShareItSaveIt app icon" class="nav-icon" width="32" height="32" />
         <span class="nav-title">ShareItSaveIt</span>
       </div>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
         <a href="#screenshots">Screenshots</a>
         <a href="#privacy">Privacy</a>
       </nav>
@@ -457,135 +524,239 @@
         </div>
 
         <h1 id="hero-title" class="hero-title">
-          Your favorite links, saved neatly —
-          <span>and kept private.</span>
+          Save and organize <span>social media links on iPhone</span>
         </h1>
 
         <p class="hero-subtitle">
-          Save Instagram posts, TikTok videos, X threads, YouTube links, and more with a single tap.
-          Organize everything into folders that make sense to you. No accounts. No tracking.
-          All data stays on your device.
+          Save Instagram posts, TikTok videos, X threads, YouTube links, Reddit posts, and Safari pages with a single tap.
+          ShareItSaveIt is a private iOS link organizer that helps you keep everything neatly sorted into folders, with no accounts,
+          no tracking, and no cloud storage required.
         </p>
 
         <div class="hero-badges">
           <span class="badge">
-            <span class="badge-dot"></span> Works from any app via the Share Sheet
+            <span class="badge-dot"></span> Save links from any app with the iPhone Share Sheet
           </span>
-          <span class="badge"> Full offline storage — nothing leaves your device </span>
-          <span class="badge"> Fast, simple, distraction-free </span>
+          <span class="badge"> Store bookmarks locally on your device </span>
+          <span class="badge"> Organize links into folders for anything </span>
         </div>
 
         <div class="hero-actions">
-          <button class="btn-primary" type="button" onclick="window.open('https://apps.apple.com/us/app/shareitsaveit/id6755452662', '_blank')">
+          <a
+            class="btn-primary"
+            href="https://apps.apple.com/us/app/shareitsaveit/id6755452662"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download ShareItSaveIt on the App Store"
+          >
             <span class="icon"></span>
             <span>Download on the App Store</span>
-          </button>
-          <button class="btn-ghost" type="button" onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth' });">
+          </a>
+
+          <a class="btn-ghost" href="#how-it-works">
             Learn how it works →
-          </button>
+          </a>
         </div>
       </div>
 
-      <div class="hero-right" aria-hidden="true">
+      <div class="hero-right">
         <div class="hero-phone">
-          <img src="screenshots/screen1.png" alt="ShareItSaveIt app screenshot" />
+          <img
+            src="screenshots/screen1.png"
+            alt="ShareItSaveIt iPhone app showing a list of saved social media links"
+            width="260"
+            height="563"
+          />
         </div>
         <div class="hero-pill">
           <span class="hero-pill-dot"></span>
-          <span>One-tap bookmarking for all your social media</span>
+          <span>One-tap bookmarking for social media and web links</span>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="section">
+    <section id="features" class="section" aria-labelledby="features-title">
       <div class="section-header">
-        <h2 class="section-title">Built for fast saving & calm browsing</h2>
+        <h2 id="features-title" class="section-title">Built for fast saving and calm browsing</h2>
         <p class="section-subtitle">
-          ShareItSaveIt keeps your social media links organized without noise, feeds, or tracking.
-          Just a clean library that’s always ready when you are.
+          ShareItSaveIt helps you save social media posts and web links without messy bookmarks,
+          endless tabs, or cluttered feeds.
         </p>
       </div>
 
       <div class="features-grid">
         <article class="feature-card">
           <div class="feature-label">Save anywhere</div>
-          <h3 class="feature-title">Save from any social app</h3>
+          <h3 class="feature-title">Save links from any social app</h3>
           <p class="feature-body">
             Use the iOS Share Sheet to instantly save links from Instagram, TikTok, X, YouTube,
-            Reddit, or any browser. No copy-paste — just tap “Share” → “ShareItSaveIt”.
+            Reddit, or Safari. No copy and paste. Just tap Share and send it to ShareItSaveIt.
           </p>
         </article>
 
         <article class="feature-card">
           <div class="feature-label">Organize</div>
-          <h3 class="feature-title">Folders that make sense to you</h3>
+          <h3 class="feature-title">Create folders that match your workflow</h3>
           <p class="feature-body">
-            Group saved links by creator, topic, mood, project, or anything else.
-            Create a library that matches how your brain works, not how a feed is designed.
+            Organize saved links by creator, topic, project, recipe, travel idea, inspiration,
+            or anything else. Build a personal link library that makes sense to you.
           </p>
         </article>
 
         <article class="feature-card">
           <div class="feature-label">Privacy</div>
-          <h3 class="feature-title">Private by design</h3>
+          <h3 class="feature-title">A private bookmark manager for iPhone</h3>
           <p class="feature-body">
-            There are no accounts, no analytics, and no servers. All your bookmarks stay on your device,
-            under your control — not on someone else’s cloud.
+            There are no accounts, no analytics, and no servers storing your data. All your saved links
+            stay on your device, under your control.
           </p>
         </article>
       </div>
     </section>
 
-    <section id="screenshots" class="section">
+    <section id="how-it-works" class="section" aria-labelledby="how-it-works-title">
       <div class="section-header">
-        <h2 class="section-title">See ShareItSaveIt in action</h2>
+        <h2 id="how-it-works-title" class="section-title">How ShareItSaveIt works</h2>
+        <p class="section-subtitle">
+          A simple iOS app for people who want to save Instagram posts, TikTok videos,
+          YouTube links, articles, and other web content for later.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <p class="feature-body">
+          ShareItSaveIt is a private link organizer for iPhone. When you find something worth saving,
+          like a TikTok video, an Instagram post, an X thread, a YouTube link, a Reddit post, or a page in Safari,
+          you can use the iPhone Share Sheet to save it in one tap. From there, you can organize your saved links into folders,
+          browse them later without distraction, and keep your bookmarks available offline on your device.
+        </p>
+        <br />
+        <p class="feature-body">
+          This makes ShareItSaveIt useful for saving recipes, travel ideas, shopping research, creator content,
+          project inspiration, study resources, and anything else you want to revisit. Unlike cloud-heavy bookmarking tools,
+          ShareItSaveIt stays lightweight and private by design.
+        </p>
+      </div>
+    </section>
+
+    <section id="screenshots" class="section" aria-labelledby="screenshots-title">
+      <div class="section-header">
+        <h2 id="screenshots-title" class="section-title">See ShareItSaveIt in action</h2>
         <p class="section-subtitle">
           A quick look at how saving, browsing, and organizing your favorite links feels inside the app.
         </p>
       </div>
 
-      <div class="screenshots-grid">
+      <div class="screenshots-grid" aria-label="App screenshots gallery">
         <div class="screenshot-item">
-          <img src="screenshots/screen1.png" alt="ShareItSaveIt screenshot 1" />
+          <img
+            src="screenshots/screen1.png"
+            alt="Home screen of ShareItSaveIt showing saved links on iPhone"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
         <div class="screenshot-item">
-          <img src="screenshots/screen2.png" alt="ShareItSaveIt screenshot 2" />
+          <img
+            src="screenshots/screen2.png"
+            alt="Folders view in ShareItSaveIt for organizing Instagram, TikTok, and YouTube links"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
         <div class="screenshot-item">
-          <img src="screenshots/screen3.png" alt="ShareItSaveIt screenshot 3" />
+          <img
+            src="screenshots/screen3.png"
+            alt="Saved link detail view inside ShareItSaveIt on iPhone"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
         <div class="screenshot-item">
-          <img src="screenshots/screen4.png" alt="ShareItSaveIt screenshot 4" />
+          <img
+            src="screenshots/screen4.png"
+            alt="ShareItSaveIt app interface for browsing saved social media bookmarks"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
         <div class="screenshot-item">
-          <img src="screenshots/screen5.png" alt="ShareItSaveIt screenshot 5" />
+          <img
+            src="screenshots/screen5.png"
+            alt="ShareItSaveIt screen showing organized folders and saved posts"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
         <div class="screenshot-item">
-          <img src="screenshots/screen6.png" alt="ShareItSaveIt screenshot 6" />
+          <img
+            src="screenshots/screen6.png"
+            alt="ShareItSaveIt iPhone app showing a clean private bookmark organizer"
+            width="160"
+            height="346"
+            loading="lazy"
+          />
         </div>
       </div>
 
       <p class="screenshots-hint">Tip: scroll horizontally to view all screenshots →</p>
     </section>
 
-    <!-- PRIVACY / SUPPORT -->
-    <section id="privacy" class="section">
+    <section class="section" aria-labelledby="use-cases-title">
       <div class="section-header">
-        <h2 class="section-title">Privacy & Support</h2>
+        <h2 id="use-cases-title" class="section-title">What you can save with ShareItSaveIt</h2>
         <p class="section-subtitle">
-          ShareItSaveIt is intentionally simple and private. For full details
-          or to get help, use the links below.
+          Use it as a bookmark organizer, inspiration library, or private reading list for your iPhone.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-label">Creators</div>
+          <h3 class="feature-title">Save posts and videos for later</h3>
+          <p class="feature-body">
+            Keep track of creators, videos, threads, and posts you want to revisit without losing them in your social feed.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Research</div>
+          <h3 class="feature-title">Collect links for projects and ideas</h3>
+          <p class="feature-body">
+            Save product research, tutorials, inspiration, articles, and reference links into folders you can browse anytime.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-label">Lifestyle</div>
+          <h3 class="feature-title">Organize recipes, travel, and shopping finds</h3>
+          <p class="feature-body">
+            Use ShareItSaveIt to keep all your saved discoveries in one place instead of spreading them across apps and tabs.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="privacy" class="section" aria-labelledby="privacy-title">
+      <div class="section-header">
+        <h2 id="privacy-title" class="section-title">Privacy and support</h2>
+        <p class="section-subtitle">
+          ShareItSaveIt is intentionally simple, private, and easy to use. For full details or help, use the links below.
         </p>
       </div>
 
       <div class="features-grid">
         <article class="feature-card">
           <div class="feature-label">Privacy</div>
-          <h3 class="feature-title">Privacy Policy</h3>
+          <h3 class="feature-title">Read the privacy policy</h3>
           <p class="feature-body">
-            Learn exactly how ShareItSaveIt handles your data (spoiler:
-            everything stays on your device, and we don’t track you).
+            Learn exactly how ShareItSaveIt handles your data. Your saved links stay on your device,
+            and the app does not track you.
           </p>
           <p style="margin-top: 10px;">
             <a href="privacy-policy.html">Read the Privacy Policy →</a>
@@ -594,10 +765,10 @@
 
         <article class="feature-card">
           <div class="feature-label">Support</div>
-          <h3 class="feature-title">Support & Feedback</h3>
+          <h3 class="feature-title">Get help or send feedback</h3>
           <p class="feature-body">
             Having trouble, or have an idea that would make ShareItSaveIt better?
-            We’d love to hear from you.
+            Visit the support page and get in touch.
           </p>
           <p style="margin-top: 10px;">
             <a href="support.html">Visit the Support page →</a>
@@ -605,17 +776,16 @@
         </article>
 
         <article class="feature-card">
-          <div class="feature-label">Roadmap</div>
-          <h3 class="feature-title">Thoughtful future updates</h3>
+          <div class="feature-label">Updates</div>
+          <h3 class="feature-title">Thoughtful future improvements</h3>
           <p class="feature-body">
-            Future versions may add smarter organization and faster ways to open saved links —
-            without compromising the app’s simple, private core.
+            Future updates may add smarter organization and faster ways to manage saved links,
+            while keeping the app simple and privacy-first.
           </p>
         </article>
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
       <span>© <span id="year"></span> ShareItSaveIt. All rights reserved.</span>
       <div class="footer-links">
